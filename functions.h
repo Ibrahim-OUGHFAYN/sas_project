@@ -105,8 +105,11 @@ void add_avion(aeroport arports[size_aeroport], char nom[50])
     scanf(" %[^\n]", model);
     printf("donner moi le capacite de l'avion:");
     scanf(" %d", &cap);
-    printf("donner moi le status de l'avion:");
-    scanf(" %[^\n]", status);
+    do
+    {
+        printf("donner moi le status de l'avion(desponible,En maintenance,En Vol):");
+        scanf(" %[^\n]", status);
+    } while (strcasecmp(status, "en vol") != 0 && strcasecmp(status, "en maintenance") != 0 && strcasecmp(status, "desponible") != 0);
     printf("donner moi la date d'entre de l'avion 'dd/mm/yyyy':");
     scanf("%d/%d/%d", &d, &m, &y);
     int a = getibynom(arports, nom);
@@ -134,7 +137,7 @@ void updateAvion(aeroport arports[size_aeroport], char nom[50])
             int cap;
             printf("donner moi la nouvel modele: ");
             scanf(" %[^\n]", mod);
-            printf("donner moi la nouvel statut: ");
+            printf("donner moi la nouvel statut(desponible,en maintenance,en vol): ");
             scanf(" %[^\n]", statut);
             printf("donner moi la nouvel capacite: ");
             scanf("%d", &cap);
@@ -185,7 +188,7 @@ void searachById(aeroport arports[size_aeroport], char nom[50])
         }
     }
 }
-//search avions by model
+// search avions by model
 void searachByModel(aeroport arports[size_aeroport], char nom[50])
 {
     char model[20];
@@ -201,42 +204,69 @@ void searachByModel(aeroport arports[size_aeroport], char nom[50])
         }
     }
 }
-//trier avion par capacite
+// trier avion par capacite
 void trierParCap(aeroport arports[size_aeroport], char nom[50])
 {
     avion temp;
     int a = getibynom(arports, nom);
-    for (int i = nbrAvions-1; i > 0; i--)
+    for (int i = nbrAvions - 1; i > 0; i--)
     {
         for (int j = 0; j < i; j++)
         {
-            if (arports[a].avions[j].capacite > arports[a].avions[j+1].capacite)
+            if (arports[a].avions[j].capacite > arports[a].avions[j + 1].capacite)
             {
-                temp=arports[a].avions[j];
-                arports[a].avions[j]=arports[a].avions[j+1];
-                arports[a].avions[j+1]=temp;
+                temp = arports[a].avions[j];
+                arports[a].avions[j] = arports[a].avions[j + 1];
+                arports[a].avions[j + 1] = temp;
             }
         }
     }
     printf("all avions now are sorted press 1 to show the new list\n");
 }
 
-//trier avion par modele alphabetique
+// trier avion par modele alphabetique
 void trierParModel(aeroport arports[size_aeroport], char nom[50])
 {
     avion temp;
     int a = getibynom(arports, nom);
-    for (int i = nbrAvions-1; i > 0; i--)
+    for (int i = nbrAvions - 1; i > 0; i--)
     {
         for (int j = 0; j < i; j++)
         {
-            if (strcasecmp(arports[a].avions[j].model,arports[a].avions[j+1].model)>0)
+            if (strcasecmp(arports[a].avions[j].model, arports[a].avions[j + 1].model) > 0)
             {
-                temp=arports[a].avions[j];
-                arports[a].avions[j]=arports[a].avions[j+1];
-                arports[a].avions[j+1]=temp;
+                temp = arports[a].avions[j];
+                arports[a].avions[j] = arports[a].avions[j + 1];
+                arports[a].avions[j + 1] = temp;
             }
         }
     }
     printf("all avions now are sorted press 1 to show the new list\n");
+}
+
+// les satatistiques
+void stats(aeroport arports[size_aeroport], char nom[50])
+{
+    avion temp;
+    int a = getibynom(arports, nom);
+    int nbrdespo = 0, nbrenmain = 0, nbrenvol = 0;
+    printf("voila le nombre total des avions dans cette aeroport : %d\n", nbrAvions);
+    for (int i = 0; i < nbrAvions; i++)
+    {
+        if (strcasecmp(arports[a].avions[i].status, "desponible") == 0)
+        {
+            nbrdespo++;
+        }
+        else if (strcasecmp(arports[a].avions[i].status, "en maintenance") == 0)
+        {
+            nbrenmain++;
+        }
+        else if (strcasecmp(arports[a].avions[i].status, "en vol") == 0)
+        {
+            nbrenvol++;
+        }
+    }
+    printf("il y a %d avions desponible\n", nbrdespo);
+    printf("il y a %d avions en maintenance\n", nbrenmain);
+    printf("il y a %d avions en vol\n", nbrenvol);
 }

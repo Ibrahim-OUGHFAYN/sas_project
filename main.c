@@ -61,8 +61,9 @@ void avionsMenu(aeroport arpts[size_aeroport], char nom[50])
         printf("#    6-Rechercher un avion par modele                                                                             #\n");
         printf("#    7-Trier les avions par la capacite                                                                           #\n");
         printf("#    8-Trier les avions par modele alphabetique                                                                   #\n");
-        printf("#    9-retourn a l'menu des eroports                                                                              #\n");
-        printf("#    0-quitter le program                                                                                         #\n");
+        printf("#    9-les statistiques                                                                                           #\n");
+        printf("#    10-retourner a la menu des aeroport                                                                          #\n");
+        printf("#    11-quitter le program                                                                                        #\n");
         printf("#=================================================================================================================#\n");
         printf("#taper votre choix ici:");
         int ch;
@@ -99,23 +100,28 @@ void avionsMenu(aeroport arpts[size_aeroport], char nom[50])
             searachByModel(arpts, nom);
             continue;
         }
-         case 7:
+        case 7:
         {
             trierParCap(arpts, nom);
             continue;
         }
-         case 8:
+        case 8:
         {
             trierParModel(arpts, nom);
             continue;
         }
-        case 0:
-        {
-            return;
-        }
         case 9:
         {
+            stats(arpts, nom);
+            continue;
+        }
+        case 10:
+        {
             aeroportsMenu(arpts);
+        }
+        case 11:
+        {
+            return;
         }
         default:
         {
