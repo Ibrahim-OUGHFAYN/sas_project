@@ -57,10 +57,10 @@ void avionsMenu(aeroport arpts[size_aeroport], char nom[50])
         printf("#    2-ajouter un avion                                                                                           #\n");
         printf("#    3-Modifier un avion                                                                                          #\n");
         printf("#    4-Supprimer un avion.                                                                                        #\n");
-        printf("#    7-Trier les avions par la capacite                                                                           #\n");
-        printf("#    8-Trier les avions par modele alphabetique                                                                   #\n");
         printf("#    5-Rechercher un avion par id                                                                                 #\n");
         printf("#    6-Rechercher un avion par modele                                                                             #\n");
+        printf("#    7-Trier les avions par la capacite                                                                           #\n");
+        printf("#    8-Trier les avions par modele alphabetique                                                                   #\n");
         printf("#    9-retourn a l'menu des eroports                                                                              #\n");
         printf("#    0-quitter le program                                                                                         #\n");
         printf("#=================================================================================================================#\n");
@@ -94,9 +94,19 @@ void avionsMenu(aeroport arpts[size_aeroport], char nom[50])
             searachById(arpts, nom);
             continue;
         }
-         case 5:
+        case 6:
         {
-            searsearachByModelachById(arpts, nom);
+            searachByModel(arpts, nom);
+            continue;
+        }
+         case 7:
+        {
+            trierParCap(arpts, nom);
+            continue;
+        }
+         case 8:
+        {
+            trierParModel(arpts, nom);
             continue;
         }
         case 0:
@@ -119,9 +129,8 @@ void avionsMenu(aeroport arpts[size_aeroport], char nom[50])
 int main()
 {
     aeroport arpts[size_aeroport];
-    
-    aeroportsMenu(arpts);
 
+    aeroportsMenu(arpts);
 
     return 0;
 }
