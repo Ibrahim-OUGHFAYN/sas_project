@@ -269,4 +269,22 @@ void stats(aeroport arports[size_aeroport], char nom[50])
     printf("il y a %d avions desponible\n", nbrdespo);
     printf("il y a %d avions en maintenance\n", nbrenmain);
     printf("il y a %d avions en vol\n", nbrenvol);
+    int totalcap=0;
+    for(int i=0;i<nbrAvions;i++){
+        totalcap+=arports[a].avions[i].capacite;
+    }
+    printf("le total capacite de tout les avions dans cette aeroport est: %d\n",totalcap);
+
+    int maxcap=arports[a].avions[0].capacite;
+    int indexmax=0;
+    for(int i=1;i<nbrAvions;i++){
+        if(maxcap < arports[a].avions[i].capacite){
+            maxcap=arports[a].avions[i].capacite;
+            indexmax=i;
+            break;
+        }
+    }
+    printf("l'avion %s c'est l'avion ayant la plust grand capacite %d\n",totalcap);
+
+    int mincap=arports[a].avions[0].capacite;
 }
