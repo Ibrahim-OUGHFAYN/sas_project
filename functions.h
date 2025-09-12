@@ -54,7 +54,6 @@ void addAeroport(aeroport arports[size_aeroport])
         }
     }
 }
-
 // void to list all aeroports
 void listAeroports(aeroport arports[size_aeroport])
 {
@@ -69,7 +68,6 @@ void listAeroports(aeroport arports[size_aeroport])
             printf(" --> l'areport %s contient %d avions\n", arports[i].nom, arports[i].nbrAvions);
         }
     }
-}
 
 // get index airoport by nom
 int getibynom(aeroport arports[size_aeroport], char nom[50])
@@ -92,7 +90,7 @@ void list_avions(aeroport arports[size_aeroport], char nom[50])
         {
             return;
         }
-        printf("%d- id: %d,model: %s,capacite: %d,status: %s,date entre: %d/%d/%d \n", i + 1, arports[a].avions[i].idAvion, arports[a].avions[i].model, arports[a].avions[i].capacite, arports[a].avions[i].status, arports[a].avions[i].dtEntree.d, arports[a].avions[i].dtEntree.m, arports[a].avions[i].dtEntree.y);
+        printf("-id: %d,model: %s,capacite: %d,status: %s,date entre: %d/%d/%d \n", arports[a].avions[i].idAvion, arports[a].avions[i].model, arports[a].avions[i].capacite, arports[a].avions[i].status, arports[a].avions[i].dtEntree.d, arports[a].avions[i].dtEntree.m, arports[a].avions[i].dtEntree.y);
     }
 }
 // ajouter avion
@@ -195,11 +193,11 @@ void searachByModel(aeroport arports[size_aeroport], char nom[50])
     int a = getibynom(arports, nom);
     printf("\nentrer le model de l'avion qui vous rechercher:");
     scanf(" %[^\n]", model);
+    printf("voila les avion de model %s:\n", &model);
     for (int i = 0; i <= nbrAvions; i++)
     {
         if (strcasecmp(arports[a].avions[i].model, model) == 0)
         {
-            printf("voila les avion de model %s:\n", &model);
             printf("%d- id: %d,model: %s,capacite: %d,status: %s,date entre: %d/%d/%d \n", i + 1, arports[a].avions[i].idAvion, arports[a].avions[i].model, arports[a].avions[i].capacite, arports[a].avions[i].status, arports[a].avions[i].dtEntree.d, arports[a].avions[i].dtEntree.m, arports[a].avions[i].dtEntree.y);
         }
     }
@@ -223,7 +221,6 @@ void trierParCap(aeroport arports[size_aeroport], char nom[50])
     }
     printf("all avions now are sorted press 1 to show the new list\n");
 }
-
 // trier avion par modele alphabetique
 void trierParModel(aeroport arports[size_aeroport], char nom[50])
 {
@@ -243,7 +240,6 @@ void trierParModel(aeroport arports[size_aeroport], char nom[50])
     }
     printf("all avions now are sorted press 1 to show the new list\n");
 }
-
 // les satatistiques
 void stats(aeroport arports[size_aeroport], char nom[50])
 {
@@ -269,22 +265,40 @@ void stats(aeroport arports[size_aeroport], char nom[50])
     printf("il y a %d avions desponible\n", nbrdespo);
     printf("il y a %d avions en maintenance\n", nbrenmain);
     printf("il y a %d avions en vol\n", nbrenvol);
-    int totalcap=0;
-    for(int i=0;i<nbrAvions;i++){
-        totalcap+=arports[a].avions[i].capacite;
+    int totalcap = 0;
+    for (int i = 0; i < nbrAvions; i++)
+    {
+        totalcap += arports[a].avions[i].capacite;
     }
-    printf("le total capacite de tout les avions dans cette aeroport est: %d\n",totalcap);
+    printf("le total capacite de tout les avions dans cette aeroport est: %d\n", totalcap);
 
-    int maxcap=arports[a].avions[0].capacite;
-    int indexmax=0;
-    for(int i=1;i<nbrAvions;i++){
-        if(maxcap < arports[a].avions[i].capacite){
-            maxcap=arports[a].avions[i].capacite;
-            indexmax=i;
+    int maxcap = arports[a].avions[0].capacite;
+    int indexmax = 0;
+    for (int i = 1; i < nbrAvions; i++)
+    {
+        if (maxcap < arports[a].avions[i].capacite)
+        {
+            maxcap = arports[a].avions[i].capacite;
+            indexmax = i;
             break;
         }
     }
-    printf("l'avion %s c'est l'avion ayant la plust grand capacite %d\n",totalcap);
 
-    int mincap=arports[a].avions[0].capacite;
+    printf("l'avion %s de l'id %d c'est l'avion ayant la plus grand capacite : %d\n", arports[a].avions[indexmax].model, arports[a].avions[indexmax].idAvion, arports[a].avions[indexmax].capacite);
+    int mincap = arports[a].avions[0].capacite;
+    int indexmin = 0;
+    for (int i = 1; i < nbrAvions; i++)
+    {
+        if (mincap > arports[a].avions[i].capacite)
+        {
+            mincap = arports[a].avions[i].capacite;
+            indexmin = i;
+            break;
+        }
+    }
+    printf("l'avion %s de l'id %d c'est l'avion ayant la plus petite capacite : %d\n", arports[a].avions[indexmin].model, arports[a].avions[indexmin].idAvion, arports[a].avions[indexmin].capacite);
+
+    float cof=(nbrdespo / nbrAvions) * 100;
+    printf("voila la coefficient d’occupation : %f%%\n",cof);
+    printf("voila la coefficient d’occupation sous format numerique : %f%%\n",cof/100);
 }
